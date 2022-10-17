@@ -129,7 +129,9 @@ fn main() {
 
    conditional_while_loop(34);
 
-//    precise_loop(months);
+    //    precise_loop(months);
+
+    farenheit_to_celcius(56);
 }
 
 fn simple_function() {
@@ -211,3 +213,9 @@ fn conditional_while_loop(x: u32) {
 //         println!("Month {counter} is {month}");
 //     }
 // }
+
+fn farenheit_to_celcius(temp: i32) -> f64 {
+    let celcius = ((temp - 32) as f64) * 0.5555556;
+    println!("{temp}°F equals {celcius}°C");
+    celcius
+}
