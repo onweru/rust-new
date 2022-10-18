@@ -129,7 +129,7 @@ fn main() {
 
    conditional_while_loop(34);
 
-    //    precise_loop(months);
+       precise_loop(&months);
 
     farenheit_to_celcius(56);
 }
@@ -206,13 +206,13 @@ fn conditional_while_loop(x: u32) {
     println!("Closing loop after {counter} rounds!");
 }
 
-// fn precise_loop(list: &[str]) {
-//     let mut counter = 1;
-//     for month in list {
-//         counter += 1;
-//         println!("Month {counter} is {month}");
-//     }
-// }
+fn precise_loop(list: &mut [str; 12]) {
+    let mut counter = 1;
+    for month in list {
+        counter += 1;
+        println!("Month {counter} is {month}");
+    }
+}
 
 fn farenheit_to_celcius(temp: i32) -> f64 {
     let celcius = ((temp - 32) as f64) * 0.5555556;
