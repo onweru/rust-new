@@ -90,7 +90,7 @@ fn main() {
 
     println!("Float from tuple is: {new_float}");
 
-    let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    let months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
 
     println!("Please enter a month number");
 
@@ -206,7 +206,7 @@ fn conditional_while_loop(x: u32) {
     println!("Closing loop after {counter} rounds!");
 }
 
-fn precise_loop(list: &mut [str; 12]) {
+fn precise_loop(list:  &[str]) {
     let mut counter = 1;
     for month in list {
         counter += 1;
