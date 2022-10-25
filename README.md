@@ -16,4 +16,8 @@ cargo run
 
 # Quickly check if package will build
 cargo check
+
+## Run test
+
+cargo run
 ```
