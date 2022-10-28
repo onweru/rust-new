@@ -7,15 +7,39 @@ pub struct Config {
 }
 
 impl Config {
-	pub fn build(args: &[String]) -> Result<Config, &'static str> {
-		let args_len = args.len();
-		// let err = format!("Needed 3 arguments, but got {}", args_len);
-		if args_len < 3 {
-			return Err("Needed 3 arguments, but got less");
-		}
+	// pub fn build(mut args: &[String]) -> Result<Config, &'static str> {
+	// 	let args_len = args.len();
+	// 	// let err = format!("Needed 3 arguments, but got {}", args_len);
+	// 	if args_len < 3 {
+	// 		return Err("Needed 3 arguments, but got less");
+	// 	}
 
-		let query = &args[1];
-		let filepath = &args[2];
+	// 	let query = &args[1];
+	// 	let filepath = &args[2];
+
+	// 	let ignore_case = env::var("IGNORE_CASE").is_ok();
+
+	// 	Ok(Config {
+	// 		query: query.to_string(),
+	// 		filepath: filepath.to_string(),
+	// 		ignore_case,
+	// 	})
+	// 	// Config { query, filepath }
+	// }
+	pub fn build(
+		mut args: impl Iterator<Item = String>,
+	) -> Result<Config, &'static str> {
+		args.next();
+
+		let query = match args.next() {
+			Some(arg) => arg,
+			None => return Err("Didn't get a query string"),
+		};
+
+		let filepath = match args.next() {
+			Some(arg) => arg,
+			None => return Err("Didn't get a file path"),
+		};
 
 		let ignore_case = env::var("IGNORE_CASE").is_ok();
 
@@ -45,30 +69,36 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-	let mut results = vec![];
+	// let mut results = vec![];
+	// for line in content.lines() {
+	// 	if line.contains(query) {
+	// 		results.push(line)
+	// 	}
+	// }
 
-	for line in content.lines() {
-		if line.contains(query) {
-			results.push(line)
-		}
-	}
+	// results
+	content.lines()
+		.filter(|line| line.contains(query))
+		.collect()
 
-	results
 }
 
 pub fn search_case_insensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
 	let query = query.to_lowercase();
-	let mut results = Vec::new();
+	// let mut results = Vec::new();
 
-	for line in content.lines() {
-		if line.to_lowercase().contains(&query) {
-			results.push(line);
-		}
-	}
+	// for line in content.lines() {
+	// 	if line.to_lowercase().contains(&query) {
+	// 		results.push(line);
+	// 	}
+	// }
 
-	results
+	// results
+	content
+		.lines()
+		.filter(|line| line.to_lowercase().contains(&query))
+		.collect()
 }
-
 
 pub struct TestData<'a> {
 	pub query: Vec<&'a str>,
