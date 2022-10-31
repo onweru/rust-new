@@ -72,4 +72,3 @@ impl Drop for CustomSmartPointer {
         println!("Dropping CustomSmartPointer with data `{}!`", self.data);
     }
 }
-
