@@ -1,3 +1,5 @@
+use structs::AveragedCollection;
+
 fn main() {
     // println!("Hello, world!");
 
@@ -41,6 +43,11 @@ fn main() {
     let _black = Color(0, 0, 0);
     let _origin = Point(0, 0, 0);
 
+    // let mut wealth = AveragedCollection::new();
+
+    // let avg_wealth = try_collection_struct(wealth);
+    // println!("average wealth is {}", avg_wealth);
+
 }
 
 struct Video {
@@ -61,3 +68,6 @@ fn edit_video(name: String, id: u32) -> Video {
 struct Color(i32, i32, i32);
 struct Point(i32, i32, i32);
 
+fn try_collection_struct(obj: AveragedCollection) -> f64 {
+    obj.average()
+}
