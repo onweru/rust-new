@@ -45,3 +45,46 @@ impl Summary for Tweet<'_> {
 pub fn notify(item: &impl Summary) {
   println!("Breaking news! {}", item.summarize());
 }
+
+pub trait Draw {
+  fn draw(&self);
+}
+
+pub struct Screen {
+  pub components: Vec<Box<dyn Draw>>,
+}
+
+impl Screen {
+  pub fn run(&self) {
+    for component in self.components.iter() {
+      component.draw();
+    }
+  }
+}
+
+pub struct AltScreen<T: Draw> {
+  pub components: Vec<T>,
+}
+
+impl<T> AltScreen<T>
+where
+  T: Draw,
+{
+  pub fn rn(&self) {
+    for component in self.components.iter() {
+      component.draw();
+    }
+  }
+}
+
+pub struct Button {
+  pub width: u32,
+  pub height: u32,
+  pub label: String,
+}
+
+impl Draw for Button {
+  fn draw(&self) {
+    println!("draw button");
+  }
+}
