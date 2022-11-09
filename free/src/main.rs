@@ -1,4 +1,4 @@
-use std::slice;
+use std::{ fmt, slice };
 use std::ops::Add;
 
 static mut COUNTER: u32 = 0;
@@ -25,6 +25,8 @@ fn main() {
     );
 
     make_him_fly();
+
+    print_dog_baby_name();
 }
 
 fn add_to_count(inc: u32) {
@@ -79,6 +81,14 @@ impl Add for Point {
     }
 }
 
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+
+impl OutlinePrint for Point {}
+
 struct Millimeters(u32);
 struct Meters(u32);
 
@@ -123,4 +133,39 @@ fn make_him_fly() {
     Pilot::fly(&person);
     Wizard::fly(&person);
     person.fly();
+}
+
+trait Animal {
+    fn baby_name() -> String;
+}
+
+struct Dog;
+
+impl Dog {
+    fn baby_name() -> String {
+        String::from("Spot")
+    }
+}
+
+impl Animal for Dog {
+    fn baby_name() -> String {
+        String::from("puppy")
+    }
+}
+
+fn print_dog_baby_name() {
+    println!("A baby dog is called a {}\n", Dog::baby_name());
+    println!("A baby dog is called a {}", <Dog as Animal>::baby_name());
+}
+
+trait OutlinePrint: fmt::Display {
+    fn outline_print(&self) {
+        let output = self.to_string();
+        let len = output.len();
+        println!("{}", "*".repeat(len + 4));
+        println!("*{}*", " ".repeat(len + 2));
+        println!("* {} *", output);
+        println!("*{}*", " ".repeat(len + 2));
+        println!("{}", "*".repeat(len + 4));
+    }
 }
